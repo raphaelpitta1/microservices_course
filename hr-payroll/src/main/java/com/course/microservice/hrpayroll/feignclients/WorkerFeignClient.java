@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 @Component
-@LoadBalancerClient(name = "customer-service",
-configuration=LoadBalancerConfiguration.class)
 @FeignClient(name = "hr-worker",  path="/workers")
+@LoadBalancerClient(name = "hr-worker",
+configuration=LoadBalancerConfiguration.class)
 public interface WorkerFeignClient {
     
     @GetMapping(value = "/{id}")
