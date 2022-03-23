@@ -12,19 +12,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+
 @RestController
 @RequestMapping(value = "/payments")
 public class PaymentResource {
 
-@Autowired
-private PaymentService service;
-    
+    @Autowired
+    private PaymentService service;
 
-@GetMapping(value = "/{workerID}/days/{days}")
+    @CircuitBreaker(name = "getPaymentAlternative", fallbackMethod = "getPaymentAlternative")
+    @GetMapping(value = "/{workerID}/days/{days}")
+    public ResponseEntity<Payment> getPayment(@PathVariable Long workerID, @PathVariable int days) {
+        Payment payment = service.getPayment(workerID, days);
 
-public ResponseEntity<Payment> getaPayment(@PathVariable Long workerID, @PathVariable int days){
-    Payment payment = service.getPayment(workerID, days);
+        return ResponseEntity.ok(payment);
+    }
 
-    return ResponseEntity.ok(payment);
-}
+     public ResponseEntity<Payment> getPaymentAlternative(Long workerID,int days, Throwable t) {
+        Payment payment = new Payment("Brann", 400.0, days);
+
+        return ResponseEntity.ok(payment);
+    }
 }

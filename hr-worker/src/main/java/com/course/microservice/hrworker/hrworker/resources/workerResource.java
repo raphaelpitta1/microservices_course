@@ -41,6 +41,7 @@ public class workerResource {
         logger.info("server-port call: "+env.getProperty("server.port"));
         Worker worker = repository.findById(id).get();
 
+        
         return ResponseEntity.ok().body(worker);
     }
 }
