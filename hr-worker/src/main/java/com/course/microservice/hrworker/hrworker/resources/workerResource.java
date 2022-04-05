@@ -33,6 +33,7 @@ public class workerResource {
     @GetMapping
     public ResponseEntity<List<Worker>> findAll() {
         List<Worker> listWorker = repository.findAll();
+      
         return ResponseEntity.ok().body(listWorker);
     }
 
