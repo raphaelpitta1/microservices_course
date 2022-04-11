@@ -1,0 +1,4 @@
+com\course\microservice\hrworker\hrworker\HrWorkerApplication.class
+com\course\microservice\hrworker\hrworker\repositories\workerRepository.class
+com\course\microservice\hrworker\hrworker\entities\Worker.class
+com\course\microservice\hrworker\hrworker\resources\workerResource.class
